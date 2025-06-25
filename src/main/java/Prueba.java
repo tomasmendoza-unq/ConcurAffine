@@ -15,8 +15,8 @@ public class Prueba {
         matrices = new MatrizTransformacion();
     }
 
-    public WritableRaster recibirImagen() throws IOException {
-        File img = new File("C:\\Users\\user\\Documents\\UNQ\\Concurrente\\tp-integrador\\tp-integrador\\mona.jpg");
+    public WritableRaster recibirImagen(String url) throws IOException {
+        File img = new File(url);
         BufferedImage bi = ImageIO.read(img);
 
         return bi.getRaster();
@@ -36,10 +36,14 @@ public class Prueba {
         // CREO EL LIENZO
         //encuentra el valor mínimo de X entre las 4 esquinas transformadas → define el borde izquierdo del nuevo lienzo.
         this.minX = Math.min(Math.min(aT[0], bT[0]), Math.min(cT[0], dT[0]));
+
         // encuentra el valor máximo de X → define el borde derecho del nuevo lienzo.
         double maxX = Math.max(Math.max(aT[0], bT[0]), Math.max(cT[0], dT[0]));
 
+        //encuentra el valor mínimo de Y entre las 4 esquinas transformadas → define el borde superior del nuevo lienzo.
         this.minY = Math.min(Math.min(aT[1], bT[1]), Math.min(cT[1], dT[1]));
+
+        // encuentra el valor máximo de Y → define el borde inferior del nuevo lienzo.
         double maxY = Math.max(Math.max(aT[1], bT[1]), Math.max(cT[1], dT[1]));
 
 
@@ -66,6 +70,7 @@ public class Prueba {
                 double[] origen = transformar(x+minX,y+minY,matrizInversa);
 
                 // redondear para obtener un pixel valido
+                // (int) es para transformar al tipo de dato int, porque viene en double
                 int xOriginal = (int) Math.round(origen[0]);
                 int yOriginal = (int) Math.round(origen[1]);
 

@@ -12,7 +12,7 @@ public class Main {
         BufferedImage bi = ImageIO.read(img);
 
 
-        WritableRaster rasterOriginal = prueba.recibirImagen();
+        WritableRaster rasterOriginal = prueba.recibirImagen("C:\\Users\\user\\Documents\\UNQ\\Concurrente\\tp-integrador\\tp-integrador\\mona.jpg");
 
 
         WritableRaster rasterDestino = prueba.generarLienzo(rasterOriginal, 3);
