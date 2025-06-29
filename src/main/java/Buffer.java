@@ -2,16 +2,15 @@
 // first in first out
 public class Buffer {
 
-    private Runnable[] buffer;
+    private Task[] buffer;
     private int ending = 0;
     private int beginning= 0;
 
-
-    public Buffer(int N) {
-        this.buffer = new Runnable[N];
+    public Buffer(int tamanio) {
+        this.buffer = new Task[tamanio];
     }
 
-    public synchronized void producir(Runnable task){
+    public synchronized void producir(Task task){
         while(buffer[ending] != null){
             try {
                 wait();
@@ -24,7 +23,7 @@ public class Buffer {
         notifyAll();
     }
 
-    public synchronized Runnable consumir(){
+    public synchronized Task consumir(){
         while(buffer[beginning] == null){
             try {
                 wait();
@@ -32,9 +31,9 @@ public class Buffer {
                 throw new RuntimeException(e);
             }
         }
-        Runnable task = buffer[beginning];
+        Task task = buffer[beginning];
         buffer[beginning] = null;
-        beginning = this.next(beginning) ;
+        beginning = this.next(beginning);
         notifyAll();
         return task;
     }

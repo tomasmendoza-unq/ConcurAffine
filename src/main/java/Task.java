@@ -1,17 +1,15 @@
 import java.awt.image.WritableRaster;
 
-public class Task extends AffineTask implements Runnable{
+public abstract class Task implements Runnable {
 
     WritableRaster region;
     WritableRaster rasterOriginal;
 
     public Task(WritableRaster region, WritableRaster rasterOriginal) {
-        this.region = region;
+        this.region         = region;
         this.rasterOriginal = rasterOriginal;
     }
 
     @Override
-    public void run() {
-
-    }
+    public abstract void run();
 }
