@@ -5,19 +5,21 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Prueba prueba = new Prueba();
 
-        File img = new File("C:\\Users\\user\\Documents\\UNQ\\Concurrente\\tp-integrador\\tp-integrador\\mona.jpg");
-        BufferedImage bi = ImageIO.read(img);
+        File img = new File("image/input/mona.jpg");
+        
+        BufferedImage bi = null;
+        try {
+            bi = ImageIO.read(img);
+        } catch (IOException e) {
+            System.out.println("Imagen no encontrada");
+        }
 
+        WritableRaster rasterOriginal = prueba.recibirImagen("image/input/mona.jpg");
 
-        WritableRaster rasterOriginal = prueba.recibirImagen("C:\\Users\\user\\Documents\\UNQ\\Concurrente\\tp-integrador\\tp-integrador\\mona.jpg");
-
-
-        WritableRaster rasterDestino = prueba.generarLienzo(rasterOriginal, 3);
-
-
+        WritableRaster rasterDestino = prueba.generarLienzo(rasterOriginal, 5);
         prueba.rellenarLienzo(rasterDestino, rasterOriginal);
 
 
@@ -28,7 +30,11 @@ public class Main {
                 null
         );
 
-        File outputFile = new File("salida.jpg");
-        ImageIO.write(biSalida, "jpg", outputFile);
+        File outputFile = new File("image/output/" + img.getName());
+        try {
+            ImageIO.write(biSalida, "jpg", outputFile);
+        } catch (IOException e) {
+            System.out.println("Imagen no encontrada");
+        }
     }
 }
