@@ -47,10 +47,10 @@ public class Prueba {
     public WritableRaster generarLienzo(WritableRaster raster, int opcion){
         int ancho = raster.getWidth();
         int alto = raster.getHeight();
-        
+
         // OBTENGO LA MATRIZ DE TRANSFORMACION
         matrizElegida = matrices.getMatriz(opcion);
-        
+
         // OBTENGO LAS NUEVAS ESQUINAS DE LA IMAGEN
         double[] aT = transformar(0,0, matrizElegida);
         double[] bT = transformar(ancho,0, matrizElegida);
@@ -58,13 +58,13 @@ public class Prueba {
         double[] dT = transformar(alto,ancho, matrizElegida);
 
         // CREO EL LIENZO
-        
+
         //encuentra el valor mínimo de X entre las 4 esquinas transformadas → define el borde izquierdo del nuevo lienzo.
         this.minX = minimoEntre(aT[0], bT[0], cT[0], dT[0]);
-        
+
         // encuentra el valor máximo de X → define el borde derecho del nuevo lienzo.
         double maxX = maximoEntre(aT[0], bT[0], cT[0], dT[0]);
-        
+
         //encuentra el valor mínimo de Y entre las 4 esquinas transformadas → define el borde superior del nuevo lienzo.
         this.minY = minimoEntre(aT[1], bT[1], cT[1], dT[1]);
 
@@ -92,7 +92,7 @@ public class Prueba {
     private double minimoEntre(double a, double b, double c, double d) {
         return Math.min(Math.min(a, b), Math.min(c, d));
     }
-    
+
     /**
      * Método para saber cual de los 4 puntos dados es el de valor más grande
      * @param a Un punto de algún espacio
@@ -114,7 +114,7 @@ public class Prueba {
         double[][] matrizInversa = matrices.calculoDeInversa(matrizElegida);
         int ancho = rasterDestino.getWidth();
         int alto = rasterDestino.getHeight();
-        
+
         for (int x = 0; x < ancho; x++){
             for (int y = 0; y < alto; y++){
 
@@ -139,7 +139,7 @@ public class Prueba {
      * Método para indicar si una coordenada cae dentro del máximo espacio dado
      * @param coord Un punto en el espacio que puede o no estar incluido en el max
      * @param max El máximo punto en el que puede entrar el resto de puntos
-     * @return {@code true} Si 0 <= coord < max; {@code false} en caso que no 
+     * @return {@code true} Si 0 <= coord < max; {@code false} en caso que no
      */
     private boolean caeDentro(int coord, int max) {
         return 0 <= coord && coord < max;
