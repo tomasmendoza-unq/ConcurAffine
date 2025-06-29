@@ -7,19 +7,13 @@ import javax.imageio.ImageIO;
 public class Main {
     public static void main(String[] args) {
         System.currentTimeMillis();
-        ThreadPool pool = new ThreadPool(10, 2); // Buffer de tamaño 10, 8 worker
+        ThreadPool pool = new ThreadPool(10, 2,"image/input/mona.jpg"); // Buffer de tamaño 10, 8 worker
 
-        try {
-            pool.launch("image/input/mona.jpg");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        pool.launch();
 
         //ESPERAR A QUE ESTE LISTA LA IMAGEN
 
         pool.stop();
-
-        // GENERAR LA IMAGEN SALIDA EN BASE AL RASTER DESTINO
 
         System.currentTimeMillis();
     }

@@ -1,14 +1,21 @@
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import java.io.File;
 import java.io.IOException;
 
 public class ThreadPool {
     private Buffer buffer;
     private Worker[] workers;
     private Prueba prueba;
+    private WritableRaster rasterDestino;
+    private WritableRaster rasterOriginal;
+    private String url;
 
-    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers){
+    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url){
         this.buffer = new Buffer(capacidadBuffer);
         prueba = new Prueba();
+        this.url = url;
         this.workers = new Worker[cantidadDeWorkers];
         for (int i = 0; i < cantidadDeWorkers; i++) {
             this.workers[i] = new Worker(this.buffer);
@@ -17,10 +24,10 @@ public class ThreadPool {
     }
 
 
-    public void launch(String url) throws IOException {
-        WritableRaster rasterOriginal = prueba.recibirImagen(url);
+    public void launch() {
+        this.rasterOriginal = prueba.recibirImagen(url);
 
-        WritableRaster rasterDestino = prueba.generarLienzo(rasterOriginal, 3);
+        this.rasterDestino = prueba.generarLienzo(rasterOriginal, 3);
 
         // capaz podriamos hacer algun calculo para que sea variable, quizas mejore la performance
         int filas = 5; // cant filas de la region
@@ -47,6 +54,28 @@ public class ThreadPool {
     public void stop(){
         for (int i = 0; i < workers.length; i++) {
             buffer.producir(new PoisonPill());
+        }
+
+        File img = new File(url);
+        BufferedImage bi = null;
+        try {
+            bi = ImageIO.read(img);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        BufferedImage biSalida = new BufferedImage(
+                bi.getColorModel(),
+                rasterDestino,
+                bi.isAlphaPremultiplied(),
+                null
+        );
+
+        File outputFile = new File("image/output/" + img.getName());
+        try {
+            ImageIO.write(biSalida, "jpg", outputFile);
+        } catch (IOException e) {
+            System.out.println("Imagen no encontrada");
         }
     }
 }
