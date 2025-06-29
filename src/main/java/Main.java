@@ -6,35 +6,21 @@ import javax.imageio.ImageIO;
 
 public class Main {
     public static void main(String[] args) {
-        Prueba prueba = new Prueba();
+        System.currentTimeMillis();
+        ThreadPool pool = new ThreadPool(10, 2); // Buffer de tamaño 10, 8 worker
 
-        File img = new File("image/input/mona.jpg");
-        
-        BufferedImage bi = null;
         try {
-            bi = ImageIO.read(img);
+            pool.launch("image/input/mona.jpg");
         } catch (IOException e) {
-            System.out.println("Imagen no encontrada");
+            throw new RuntimeException(e);
         }
 
-        WritableRaster rasterOriginal = prueba.recibirImagen("image/input/mona.jpg");
+        //ESPERAR A QUE ESTE LISTA LA IMAGEN
 
-        WritableRaster rasterDestino = prueba.generarLienzo(rasterOriginal, 5);
-        prueba.rellenarLienzo(rasterDestino, rasterOriginal);
+        pool.stop();
 
+        // GENERAR LA IMAGEN SALIDA EN BASE AL RASTER DESTINO
 
-        BufferedImage biSalida = new BufferedImage(
-                bi.getColorModel(),
-                rasterDestino,
-                bi.isAlphaPremultiplied(),
-                null
-        );
-
-        File outputFile = new File("image/output/" + img.getName());
-        try {
-            ImageIO.write(biSalida, "jpg", outputFile);
-        } catch (IOException e) {
-            System.out.println("Imagen no encontrada");
-        }
+        System.currentTimeMillis();
     }
 }
