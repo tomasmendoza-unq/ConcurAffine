@@ -11,11 +11,13 @@ public class ThreadPool {
     private WritableRaster rasterDestino;
     private WritableRaster rasterOriginal;
     private String url;
+    private int opcion;
 
-    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url){
+    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url, int opcion){
         this.buffer = new Buffer(capacidadBuffer);
         prueba = new Prueba();
         this.url = url;
+        this.opcion = opcion;
         this.workers = new Worker[cantidadDeWorkers];
         for (int i = 0; i < cantidadDeWorkers; i++) {
             this.workers[i] = new Worker(this.buffer);
@@ -27,7 +29,7 @@ public class ThreadPool {
     public void launch() {
         this.rasterOriginal = prueba.recibirImagen(url);
 
-        this.rasterDestino = prueba.generarLienzo(rasterOriginal, 3);
+        this.rasterDestino = prueba.generarLienzo(rasterOriginal, this.opcion);
 
         // capaz podriamos hacer algun calculo para que sea variable, quizas mejore la performance
         int filas = 5; // cant filas de la region
