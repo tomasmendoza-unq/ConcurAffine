@@ -7,6 +7,8 @@ import java.util.Scanner;
 public class Menu {
     private String url;
     private int opcion;
+    private int capacidadBuffer;
+    private int cantidadDeWorkers;
     private Parametros params;
     private static final Map<Integer, OpcionTransformacion> opciones = new HashMap<>();
 
@@ -30,6 +32,14 @@ public class Menu {
 
         this.opcion = teclado.nextInt();
 
+        System.out.println("Ingrese la cantidad de threads: ");
+
+        this.cantidadDeWorkers = teclado.nextInt();
+
+        System.out.println("Ingrese la capacidad del buffer: ");
+
+        this.capacidadBuffer = teclado.nextInt();
+
         OpcionTransformacion transformacion = opciones.get(opcion);
 
         this.params = transformacion.ejecutar();
@@ -47,5 +57,13 @@ public class Menu {
 
     public Parametros getParams(){
         return this.params;
+    }
+
+    public int getCapacidadBuffer() {
+        return capacidadBuffer;
+    }
+
+    public int getCantidadDeWorkers() {
+        return cantidadDeWorkers;
     }
 }

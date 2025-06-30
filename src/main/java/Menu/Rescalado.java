@@ -8,10 +8,12 @@ public class Rescalado implements OpcionTransformacion {
 
         Scanner teclado = new Scanner(System.in);
 
-        System.out.println("Ingresar cuanto crece/decrece en horizontalmente: ");
+        System.out.println("Ingrese un número para agrandar la imagen horizontalmente:");
+        System.out.println("Este número será el multiplicador de escala.");
+        System.out.println("Por ejemplo, si ingresa 2, la imagen será el doble de grande.");
 
         int param1 = teclado.nextInt();
-        System.out.println("Ingresar cuanto crece/decrece en verticalmente: ");
+        System.out.println("Ingrese un número para agrandar la imagen verticalmente:");
 
         int param2 = teclado.nextInt();
         
