@@ -7,7 +7,7 @@ import java.awt.image.WritableRaster;
  */
 public class AffineTask extends Task {
 
-    private Prueba prueba;
+    private Pintor prueba;
     private double offSetX;
     private double offSetY;
 
@@ -17,7 +17,7 @@ public class AffineTask extends Task {
      * @param rasterOriginal El raster original del cual se obtiene el contenido
      * @param prueba La herramienta para rellenar la región
      */
-    public AffineTask(WritableRaster region, WritableRaster rasterOriginal, Prueba prueba, double offSetX, double offSetY) {
+    public AffineTask(WritableRaster region, WritableRaster rasterOriginal, Pintor prueba, double offSetX, double offSetY) {
         super(region, rasterOriginal);
         this.prueba = prueba;
         this.offSetX = offSetX;

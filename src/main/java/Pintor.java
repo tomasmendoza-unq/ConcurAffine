@@ -1,3 +1,5 @@
+import Menu.Parametros;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -8,14 +10,14 @@ import java.io.IOException;
  * Clase que cumple la función de manipular todos los raster que se le brinden para
  * crear un lienzo o rellenarlos en función de otro raster
  */
-public class Prueba {
+public class Pintor {
 
     private MatrizTransformacion matrices;
     private double [][] matrizElegida;
     private double minX;
     private double minY;
 
-    public Prueba(){
+    public Pintor(){
         matrices = new MatrizTransformacion();
     }
 
@@ -48,12 +50,12 @@ public class Prueba {
      * 5. La Matriz de rotación.
      * @return Un lienzo con las medidas necesarias para que entre la imagen transformada
      */
-    public WritableRaster generarLienzo(WritableRaster raster, int opcion){
+    public WritableRaster generarLienzo(WritableRaster raster, int opcion, Parametros params){
         int ancho = raster.getWidth();
         int alto = raster.getHeight();
 
         // OBTENGO LA MATRIZ DE TRANSFORMACION
-        matrizElegida = matrices.getMatriz(opcion);
+        matrizElegida = matrices.getMatriz(opcion, params);
 
         // OBTENGO LAS NUEVAS ESQUINAS DE LA IMAGEN
         double[] aT = matrices.transformar(0,0, matrizElegida);
