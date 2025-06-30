@@ -1,3 +1,5 @@
+import Menu.Parametros;
+
 public class MatrizTransformacion {
 
     /**
@@ -118,18 +120,18 @@ public class MatrizTransformacion {
      * 5. La Matriz de rotación.
      * @return Una matriz en base a las opciones
      */
-    public double[][] getMatriz(int opcion) {
+    public double[][] getMatriz(int opcion, Parametros params) {
         switch(opcion) {
             case 1:
-                return matrizDeTraslacion(50, 50); // MODIFICAR PARA QUE SE PARAMETRICE
+                return matrizDeTraslacion(params.getParam1(), params.getParam2());
             case 2:
-                return matrizRescalado(3,3);
+                return matrizRescalado(params.getParam1(),params.getParam2());
             case 3:
                 return matrizReflection();
             case 4:
-                return matrizShear(2);
+                return matrizShear(params.getParam1());
             case 5:
-                return matrizRotacion(45);
+                return matrizRotacion(params.getParam1());
             default:
                 return null;
         }

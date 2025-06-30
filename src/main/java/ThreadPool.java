@@ -1,3 +1,5 @@
+import Menu.Parametros;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -12,8 +14,9 @@ public class ThreadPool {
     private int opcion;
     private WritableRaster rasterDestino;
     private WritableRaster rasterOriginal;
-    private Prueba prueba;
+    private Pintor prueba;
     private WorkerCounter counter;
+    private Parametros params;
 
     /**
      * Constructor de ThreadPool
@@ -22,16 +25,19 @@ public class ThreadPool {
      * @param url Indica la dirección en la que se aloja la imagen que se le hará la transformación afín
      * @param opcion Indica que tipo de transformación afín se realizará
      * @param counter Un WorkerCounter que sirve para que la clase Main no termine su ejecucción antes de que los Workers terminen
+     * @param params Objeto que trae los parametros para las matrices
      */
-    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url, int opcion, WorkerCounter counter){
+    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url, int opcion, WorkerCounter counter, Parametros params){
         this.buffer     = new Buffer(capacidadBuffer);
         this.capacidad  = capacidadBuffer;
         this.workers    = new Worker[cantidadDeWorkers];
         this.url        = url;
         this.opcion     = opcion;
-        this.counter    = counter;
+        this.counter     = counter;
+        this.params      = params;
         
-        this.prueba     = new Prueba();
+        this.prueba     = new Pintor();
+        this.region = new WritableRaster[4][4];
         
         for (int i = 0; i < cantidadDeWorkers; i++) {
             this.workers[i] = new Worker(this.buffer, this.counter);
@@ -49,7 +55,7 @@ public class ThreadPool {
         this.rasterOriginal = prueba.recibirImagen(url);
 
         // Se crea un WritableRaster que funciona como lienzo para la transformación
-        this.rasterDestino = prueba.generarLienzo(rasterOriginal, this.opcion);
+        this.rasterDestino = prueba.generarLienzo(rasterOriginal, this.opcion, this.params);
 
         int filas    = determinarSecciones(rasterDestino.getHeight());
         int columnas = determinarSecciones(rasterDestino.getWidth());
