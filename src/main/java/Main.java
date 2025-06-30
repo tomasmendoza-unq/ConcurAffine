@@ -9,7 +9,7 @@ public class Main {
 
         WorkerCounter counter = new WorkerCounter(2);
         
-        ThreadPool pool = new ThreadPool(4, 2, menu.getUrl(), menu.getOpcion(), counter, menu.getParams());
+        ThreadPool pool = new ThreadPool(menu, counter);
 
         long inicio = System.currentTimeMillis();
 

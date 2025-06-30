@@ -1,3 +1,4 @@
+import Menu.Menu;
 import Menu.Parametros;
 
 import javax.imageio.ImageIO;
@@ -27,18 +28,18 @@ public class ThreadPool {
      * @param counter Un WorkerCounter que sirve para que la clase Main no termine su ejecucción antes de que los Workers terminen
      * @param params Objeto que trae los parametros para las matrices
      */
-    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url, int opcion, WorkerCounter counter, Parametros params){
-        this.buffer     = new Buffer(capacidadBuffer);
-        this.capacidad  = capacidadBuffer;
-        this.workers    = new Worker[cantidadDeWorkers];
-        this.url        = url;
-        this.opcion     = opcion;
+    public ThreadPool(Menu menu, WorkerCounter counter){
+        this.buffer     = new Buffer(menu.getCapacidadBuffer());
+        this.capacidad  = menu.getCapacidadBuffer();
+        this.workers    = new Worker[menu.getCantidadDeWorkers()];
+        this.url        = menu.getUrl();
+        this.opcion     = menu.getOpcion();
         this.counter     = counter;
-        this.params      = params;
+        this.params      = menu.getParams();
         
         this.prueba     = new Pintor();
         
-        for (int i = 0; i < cantidadDeWorkers; i++) {
+        for (int i = 0; i < menu.getCantidadDeWorkers(); i++) {
             this.workers[i] = new Worker(this.buffer, this.counter);
             new Thread(this.workers[i]).start();
         }
