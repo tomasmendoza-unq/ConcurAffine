@@ -12,7 +12,6 @@ public class Worker implements Runnable{
                 Runnable task = buffer.consumir();
                 task.run();
             } catch (PoisonException poisonException){
-                System.out.println("Worker finalizando por PoisonPill");
                 break;
             }
 

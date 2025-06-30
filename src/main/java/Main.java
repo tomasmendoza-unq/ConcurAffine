@@ -20,7 +20,7 @@ public class Main {
 
         long inicio = System.currentTimeMillis();
 
-        // "image/input/mona.jpg")
+        // "image/input/mona.jpg"
         ThreadPool pool = new ThreadPool(10, 2,url, opcion);
 
         pool.launch();

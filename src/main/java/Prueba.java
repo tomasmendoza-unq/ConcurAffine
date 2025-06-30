@@ -52,10 +52,10 @@ public class Prueba {
         matrizElegida = matrices.getMatriz(opcion);
 
         // OBTENGO LAS NUEVAS ESQUINAS DE LA IMAGEN
-        double[] aT = transformar(0,0, matrizElegida);
-        double[] bT = transformar(ancho,0, matrizElegida);
-        double[] cT = transformar(0,alto, matrizElegida);
-        double[] dT = transformar(alto,ancho, matrizElegida);
+        double[] aT = matrices.transformar(0,0, matrizElegida);
+        double[] bT = matrices.transformar(ancho,0, matrizElegida);
+        double[] cT = matrices.transformar(0,alto, matrizElegida);
+        double[] dT = matrices.transformar(alto,ancho, matrizElegida);
 
         // CREO EL LIENZO
 
@@ -119,7 +119,7 @@ public class Prueba {
             for (int y = 0; y < alto; y++){
 
                 // aplicar inversa
-                double[] origen = transformar(x+minX, y+minY, matrizInversa);
+                double[] origen = matrices.transformar(x + minX, y + minY, matrizInversa);
 
                 // redondear para obtener un pixel valido
                 // (int) es para transformar al tipo de dato int, porque viene en double
@@ -162,9 +162,5 @@ public class Prueba {
         }
     }
 
-    private double[] transformar(double x, double y, double[][] m) {
-        double xT = m[0][0] * x + m[0][1] * y + m[0][2];
-        double yT = m[1][0] * x + m[1][1] * y + m[1][2];
-        return new double[] {xT, yT};
-    }
+
 }
