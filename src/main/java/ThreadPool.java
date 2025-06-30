@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class ThreadPool {
     private Buffer buffer;
+    private int capacidad;
     private Worker[] workers;
     private String url;
     private int opcion;
@@ -13,7 +14,6 @@ public class ThreadPool {
     private WritableRaster rasterOriginal;
     private Prueba prueba;
     private WorkerCounter counter;
-    private WritableRaster region[][];
 
     /**
      * Constructor de ThreadPool
@@ -25,17 +25,16 @@ public class ThreadPool {
      */
     public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url, int opcion, WorkerCounter counter){
         this.buffer     = new Buffer(capacidadBuffer);
+        this.capacidad  = capacidadBuffer;
         this.workers    = new Worker[cantidadDeWorkers];
         this.url        = url;
         this.opcion     = opcion;
-        this.counter     = counter;
+        this.counter    = counter;
         
         this.prueba     = new Prueba();
-        this.region = new WritableRaster[4][4];
         
         for (int i = 0; i < cantidadDeWorkers; i++) {
             this.workers[i] = new Worker(this.buffer, this.counter);
-            // this.workers[i].start();
             new Thread(this.workers[i]).start();
         }
     }
@@ -52,11 +51,12 @@ public class ThreadPool {
         // Se crea un WritableRaster que funciona como lienzo para la transformación
         this.rasterDestino = prueba.generarLienzo(rasterOriginal, this.opcion);
 
-        int filas    = 5; // cant filas de la region
-        int columnas = 5; // cant columnas de la region
+        int filas    = determinarSecciones(rasterDestino.getHeight());
+        int columnas = determinarSecciones(rasterDestino.getWidth());
+        WritableRaster[][] region = new WritableRaster[filas][columnas];
 
-        int anchoRegion = rasterDestino.getWidth() / columnas;
         int altoRegion = rasterDestino.getHeight() / filas;
+        int anchoRegion = rasterDestino.getWidth() / columnas;
 
         // Se divide el raster de destino en una grilla de 4x4 y se las envía al buffer
         for (int fila = 0; fila < filas; fila++) {
@@ -66,17 +66,17 @@ public class ThreadPool {
                 int x = col * anchoRegion;
                 int y = fila * altoRegion;
 
-                this.region[fila][col] = rasterDestino.createWritableChild(
-                    x, 
-                    y, 
-                    anchoRegion, 
-                    altoRegion, 
-                    0, 
-                    0, 
+                int ancho  = (col == columnas - 1) ? rasterDestino.getWidth() - x : anchoRegion;
+                int altura = (fila == filas - 1) ? rasterDestino.getHeight() - y : altoRegion;
+
+                region[fila][col] = rasterDestino.createWritableChild(
+                    x, y, 
+                    ancho, altura, 
+                    0, 0, 
                     null
                 );
 
-                Task task = new AffineTask(this.region[fila][col], this.rasterOriginal, this.prueba, x ,y );
+                Task task = new AffineTask(region[fila][col], this.rasterOriginal, this.prueba, x ,y );
                 this.buffer.producir(task);
             }
         }
@@ -86,6 +86,30 @@ public class ThreadPool {
             buffer.producir(new PoisonPill(this.rasterDestino, this.rasterOriginal));
         }
     }
+
+    /**
+     * Método para determinar cuantas secciones se crean en determinada posición.
+     * Véase, para columnas y filas cuantas divisiones se crean.
+     * <br><br>
+     * Ambos valores dependen del tamaño que corresponda:
+     * <ul>
+     * <li>El ancho de la imagen para las columnas</li>
+     * <li>El alto de la imagen para las filas</li>
+     * </ul>
+     * Además de la capacidad del buffer para guardar task
+     * @param medida
+     * @return
+     */
+    private int determinarSecciones(int medida) {
+        return (medida >= 1024 && this.capacidad >= 16)
+                ? 32
+                : (medida >= 512 && this.capacidad >= 8)
+                    ? 16
+                    : (medida >= 128 && this.capacidad >= 4)
+                        ? 8
+                        : 4;
+    }
+
 
     /**
      * Se crea la nueva imagen en relación del raster de destino y se la guarda en la carpeta de
