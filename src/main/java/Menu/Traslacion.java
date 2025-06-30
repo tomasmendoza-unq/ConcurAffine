@@ -13,7 +13,9 @@ public class Traslacion implements OpcionTransformacion {
         System.out.println("Ingresar desplazamiento en Y: ");
 
         int param2 = teclado.nextInt();
-
+        
+        teclado.close();
+        
         return new Parametros(param1, param2);
     }
 }

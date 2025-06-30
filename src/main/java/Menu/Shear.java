@@ -10,6 +10,8 @@ public class Shear implements OpcionTransformacion {
         System.out.println("Ingresar cuanto se desplaza la imagen: ");
 
         int param1 = teclado.nextInt();
+        
+        teclado.close();
 
         return new Parametros(param1);
     }

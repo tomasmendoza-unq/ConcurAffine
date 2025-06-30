@@ -10,6 +10,8 @@ public class Rotacion implements OpcionTransformacion {
         System.out.println("Ingresar grados de rotacion de la imagen: ");
 
         int param1 = teclado.nextInt();
+        
+        teclado.close();
 
         return new Parametros(param1);
     }

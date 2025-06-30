@@ -14,6 +14,8 @@ public class Rescalado implements OpcionTransformacion {
         System.out.println("Ingresar cuanto crece/decrece en verticalmente: ");
 
         int param2 = teclado.nextInt();
+        
+        teclado.close();
 
         return new Parametros(param1, param2);
     }

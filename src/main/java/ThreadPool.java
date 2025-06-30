@@ -37,7 +37,6 @@ public class ThreadPool {
         this.params      = params;
         
         this.prueba     = new Pintor();
-        this.region = new WritableRaster[4][4];
         
         for (int i = 0; i < cantidadDeWorkers; i++) {
             this.workers[i] = new Worker(this.buffer, this.counter);
