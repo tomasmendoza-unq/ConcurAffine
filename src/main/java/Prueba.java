@@ -4,6 +4,10 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Clase que cumple la función de manipular todos los raster que se le brinden para
+ * crear un lienzo o rellenarlos en función de otro raster
+ */
 public class Prueba {
 
     private MatrizTransformacion matrices;
