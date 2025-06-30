@@ -55,7 +55,7 @@ public class Prueba {
         double[] aT = matrices.transformar(0,0, matrizElegida);
         double[] bT = matrices.transformar(ancho,0, matrizElegida);
         double[] cT = matrices.transformar(0,alto, matrizElegida);
-        double[] dT = matrices.transformar(alto,ancho, matrizElegida);
+        double[] dT = matrices.transformar(ancho,alto, matrizElegida);
 
         // CREO EL LIENZO
 
