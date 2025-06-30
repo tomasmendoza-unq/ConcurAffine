@@ -55,7 +55,7 @@ public class ThreadPool {
 
     public void stop(){
         for (int i = 0; i < workers.length; i++) {
-            buffer.producir(new PoisonPill());
+            buffer.producir(new PoisonPill(this.rasterDestino, this.rasterOriginal));
         }
 
         File img = new File(url);
