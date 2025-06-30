@@ -13,6 +13,9 @@ public class Parametros {
         this.param1 = param1;
     }
 
+    public Parametros() {
+    }
+
     public int getParam1() {
         return param1;
     }

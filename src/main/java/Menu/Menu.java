@@ -13,6 +13,7 @@ public class Menu {
     public Menu() {
         opciones.put(1, new Traslacion());
         opciones.put(2, new Rescalado());
+        opciones.put(3, new Reflection());
         opciones.put(4, new Shear());
         opciones.put(5, new Rotacion());
     }
