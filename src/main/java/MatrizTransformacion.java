@@ -134,4 +134,10 @@ public class MatrizTransformacion {
                 return null;
         }
     }
+
+    public double[] transformar(double x, double y, double[][] m) {
+        double xT = m[0][0] * x + m[0][1] * y + m[0][2];
+        double yT = m[1][0] * x + m[1][1] * y + m[1][2];
+        return new double[] {xT, yT};
+    }
 }

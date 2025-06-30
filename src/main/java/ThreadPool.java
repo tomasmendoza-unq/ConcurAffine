@@ -45,7 +45,7 @@ public class ThreadPool {
                 int y = fila * altoRegion;
 
                 WritableRaster region = rasterDestino.createWritableChild(x, y, anchoRegion, altoRegion, 0, 0, null);
-                AffineTask task = new AffineTask(region, rasterOriginal);
+                AffineTask task = new AffineTask(region, rasterOriginal, prueba);
 
                 buffer.producir(task);
             }

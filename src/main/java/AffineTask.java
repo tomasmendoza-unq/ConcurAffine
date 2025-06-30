@@ -4,12 +4,13 @@ public class AffineTask extends Task {
 
     WritableRaster region;
     WritableRaster rasterOriginal;
-    Prueba pr;
+    Prueba prueba;
 
 
-    public AffineTask(WritableRaster region, WritableRaster rasterOriginal) {
-        super(region, rasterOriginal);
-        pr = new Prueba();
+    public AffineTask( WritableRaster region, WritableRaster rasterOriginal, Prueba prueba) {
+        this.region = region;
+        this.rasterOriginal = rasterOriginal;
+        this.prueba = prueba;
     }
 
     @Override
