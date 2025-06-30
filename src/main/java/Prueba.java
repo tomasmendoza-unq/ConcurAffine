@@ -114,7 +114,7 @@ public class Prueba {
      * @param rasterDestino Un lienzo para rellenar con las dimensiones de la imagen original transformada
      * @param rasterOriginal El raster de la imagen original para obtener los colores
      */
-    public void rellenarLienzo(WritableRaster rasterDestino, WritableRaster rasterOriginal){
+    public void rellenarLienzo(WritableRaster rasterDestino, WritableRaster rasterOriginal, double offSetX, double offSetY){
         double[][] matrizInversa = matrices.calculoDeInversa(matrizElegida);
         int ancho = rasterDestino.getWidth();
         int alto = rasterDestino.getHeight();
@@ -122,8 +122,11 @@ public class Prueba {
         for (int x = 0; x < ancho; x++){
             for (int y = 0; y < alto; y++){
 
+                double xDest = x +offSetX+ minX;
+                double yDest = y+offSetY + minY;
+
                 // aplicar inversa
-                double[] origen = matrices.transformar(x + minX, y + minY, matrizInversa);
+                double[] origen = matrices.transformar(xDest, yDest, matrizInversa);
 
                 // redondear para obtener un pixel valido
                 // (int) es para transformar al tipo de dato int, porque viene en double

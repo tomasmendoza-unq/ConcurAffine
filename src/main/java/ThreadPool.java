@@ -52,9 +52,8 @@ public class ThreadPool {
         // Se crea un WritableRaster que funciona como lienzo para la transformación
         this.rasterDestino = prueba.generarLienzo(rasterOriginal, this.opcion);
 
-        // capaz podriamos hacer algun calculo para que sea variable, quizas mejore la performance
-        int filas    = 4; // cant filas de la region
-        int columnas = 4; // cant columnas de la region
+        int filas    = 5; // cant filas de la region
+        int columnas = 5; // cant columnas de la region
 
         int anchoRegion = rasterDestino.getWidth() / columnas;
         int altoRegion = rasterDestino.getHeight() / filas;
@@ -62,6 +61,8 @@ public class ThreadPool {
         // Se divide el raster de destino en una grilla de 4x4 y se las envía al buffer
         for (int fila = 0; fila < filas; fila++) {
             for (int col = 0; col < columnas; col++) {
+
+                // ESTOS PUNTOS REPRESENTAN DONDE COMIENZA LA REGION
                 int x = col * anchoRegion;
                 int y = fila * altoRegion;
 
@@ -75,7 +76,7 @@ public class ThreadPool {
                     null
                 );
 
-                Task task = new AffineTask(this.region[fila][col], this.rasterOriginal, this.prueba);
+                Task task = new AffineTask(this.region[fila][col], this.rasterOriginal, this.prueba, x ,y );
                 this.buffer.producir(task);
             }
         }

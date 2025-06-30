@@ -11,6 +11,7 @@ public abstract class Task implements Runnable {
     protected WritableRaster region;
     protected WritableRaster rasterOriginal;
 
+
     /**
      * Constructor de Task
      * @param region Una región para rellenar

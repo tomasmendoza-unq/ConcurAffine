@@ -8,6 +8,8 @@ import java.awt.image.WritableRaster;
 public class AffineTask extends Task {
 
     private Prueba prueba;
+    private double offSetX;
+    private double offSetY;
 
     /**
      * Constructor de AffineTask
@@ -15,9 +17,11 @@ public class AffineTask extends Task {
      * @param rasterOriginal El raster original del cual se obtiene el contenido
      * @param prueba La herramienta para rellenar la región
      */
-    public AffineTask(WritableRaster region, WritableRaster rasterOriginal, Prueba prueba) {
+    public AffineTask(WritableRaster region, WritableRaster rasterOriginal, Prueba prueba, double offSetX, double offSetY) {
         super(region, rasterOriginal);
         this.prueba = prueba;
+        this.offSetX = offSetX;
+        this.offSetY = offSetY;
     }
 
     /**
@@ -25,6 +29,6 @@ public class AffineTask extends Task {
      */
     @Override
     public void run() {
-        this.prueba.rellenarLienzo(region, rasterOriginal);
+        this.prueba.rellenarLienzo(region, rasterOriginal, offSetX, offSetY);
     }
 }
