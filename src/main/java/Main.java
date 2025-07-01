@@ -7,7 +7,7 @@ public class Main {
 
         menu.launch();
 
-        WorkerCounter counter = new WorkerCounter(2);
+        WorkerCounter counter = new WorkerCounter(menu.getCantidadDeWorkers());
         
         ThreadPool pool = new ThreadPool(menu, counter);
 

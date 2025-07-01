@@ -140,7 +140,7 @@ public class ThreadPool {
 
         try {
             File outputFile = new File("image/output/" + img.getName());
-            ImageIO.write(biSalida, "jpg", outputFile);
+            ImageIO.write(biSalida, "png", outputFile);
         } catch (IOException e) {
             System.out.println("Imagen no encontrada");
         }
