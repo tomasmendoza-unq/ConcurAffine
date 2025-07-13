@@ -1,4 +1,4 @@
-package Menu;
+package app.menu;
 
 public class Parametros {
     private int param1;

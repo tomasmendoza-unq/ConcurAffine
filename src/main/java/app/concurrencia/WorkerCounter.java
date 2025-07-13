@@ -1,13 +1,14 @@
+package app.concurrencia;
 
 /**
- * Clase que ayuda a la ejecución del Main a no terminar.
- * El Main evalua si el workerCounter llegó a 0 para finalizar
+ * Clase que ayuda a la ejecución del app.main.Main a no terminar.
+ * El app.main.Main evalua si el workerCounter llegó a 0 para finalizar
  */
 public class WorkerCounter {
     private int counter;
 
     /**
-     * Constructor de WorkerCounter
+     * Constructor de app.concurrencia.WorkerCounter
      * @param workers La cantidad de Threads que se crearon
      */
     public WorkerCounter(int workers) {
@@ -25,7 +26,7 @@ public class WorkerCounter {
     }
 
     /**
-     * Método que le indica al Main que espere mientras
+     * Método que le indica al app.main.Main que espere mientras
      * quedan Workers trabajando
      */
     public synchronized void esperarWorkers() {

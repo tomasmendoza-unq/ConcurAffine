@@ -1,4 +1,6 @@
-import Menu.Parametros;
+package app.transformaciones;
+
+import app.menu.Parametros;
 
 public class MatrizTransformacion {
 

@@ -1,5 +1,12 @@
-import Menu.Menu;
-import Menu.Parametros;
+package app.concurrencia;
+
+import app.buffer.Buffer;
+import app.buffer.PoisonPill;
+import app.buffer.Task;
+import app.menu.Menu;
+import app.menu.Parametros;
+import app.transformaciones.AffineTask;
+import app.transformaciones.Pintor;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -20,12 +27,12 @@ public class ThreadPool {
     private Parametros params;
 
     /**
-     * Constructor de ThreadPool
+     * Constructor de app.concurrencia.ThreadPool
      * @param capacidadBuffer Indica la capacidad del buffer que se va a crear
      * @param cantidadDeWorkers Indica la cantidad de Threads Workers que van a trabajar en la imagen
      * @param url Indica la dirección en la que se aloja la imagen que se le hará la transformación afín
      * @param opcion Indica que tipo de transformación afín se realizará
-     * @param counter Un WorkerCounter que sirve para que la clase Main no termine su ejecucción antes de que los Workers terminen
+     * @param counter Un app.concurrencia.WorkerCounter que sirve para que la clase app.main.Main no termine su ejecucción antes de que los Workers terminen
      * @param params Objeto que trae los parametros para las matrices
      */
     public ThreadPool(Menu menu, WorkerCounter counter){
@@ -87,7 +94,7 @@ public class ThreadPool {
             }
         }
 
-        // Se crean PoisonPills para que cuando las reciban los Worker, terminen su ejecución
+        // Se crean PoisonPills para que cuando las reciban los app.concurrencia.Worker, terminen su ejecución
         for (int i = 0; i < workers.length; i++) {
             buffer.producir(new PoisonPill(this.rasterDestino, this.rasterOriginal));
         }

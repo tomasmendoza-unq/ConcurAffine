@@ -1,11 +1,19 @@
+package app.main;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import Menu.Menu;
+import app.menu.Menu;
 
 public class Main {
     public static void main(String[] args) {
+        int[] threadsList = {1, 2, 4, 8, 16};
+        int[] bufferSizes = {1, 2, 8, 32, 64};
+        int[] opciones = {1, 2, 3, 4, 5};
+        String[] urls = {"image/input/128.jpg", "image/input/512.jpg", "image/1024.png"};
+
+
         try (PrintWriter writer = new PrintWriter(new FileWriter("tiempos.csv", true))) {
         Menu menu = new Menu();
 

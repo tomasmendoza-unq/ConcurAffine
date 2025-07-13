@@ -1,3 +1,7 @@
+package app.transformaciones;
+
+import app.buffer.Task;
+
 import java.awt.image.WritableRaster;
 
 /**
@@ -12,7 +16,7 @@ public class AffineTask extends Task {
     private double offSetY;
 
     /**
-     * Constructor de AffineTask
+     * Constructor de app.utils.transformaciones.AffineTask
      * @param region Una región a rellenar
      * @param rasterOriginal El raster original del cual se obtiene el contenido
      * @param prueba La herramienta para rellenar la región

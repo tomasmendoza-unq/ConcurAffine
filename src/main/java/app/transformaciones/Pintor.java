@@ -1,4 +1,6 @@
-import Menu.Parametros;
+package app.transformaciones;
+
+import app.menu.Parametros;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,6 +16,7 @@ public class Pintor {
 
     private MatrizTransformacion matrices;
     private double [][] matrizElegida;
+    private double [][] matrizInversa;
     private double minX;
     private double minY;
 
@@ -83,6 +86,7 @@ public class Pintor {
         int canales = raster.getNumBands(); // cantidad de bandas (RGB = 3)
         WritableRaster rasterDestino = raster.createCompatibleWritableRaster(nuevoAncho, nuevoAlto);
         rasterDestino.setPixels(0, 0, nuevoAncho, nuevoAlto, new double[nuevoAncho * nuevoAlto * canales]);
+        this.matrizInversa = matrices.calculoDeInversa(matrizElegida);
 
         return rasterDestino;
     }
@@ -117,7 +121,6 @@ public class Pintor {
      * @param rasterOriginal El raster de la imagen original para obtener los colores
      */
     public void rellenarLienzo(WritableRaster rasterDestino, WritableRaster rasterOriginal, double offSetX, double offSetY){
-        double[][] matrizInversa = matrices.calculoDeInversa(matrizElegida);
         int ancho = rasterDestino.getWidth();
         int alto = rasterDestino.getHeight();
 
@@ -128,7 +131,7 @@ public class Pintor {
                 double yDest = y+offSetY + minY;
 
                 // aplicar inversa
-                double[] origen = matrices.transformar(xDest, yDest, matrizInversa);
+                double[] origen = matrices.transformar(xDest, yDest, this.matrizInversa);
 
                 // redondear para obtener un pixel valido
                 // (int) es para transformar al tipo de dato int, porque viene en double

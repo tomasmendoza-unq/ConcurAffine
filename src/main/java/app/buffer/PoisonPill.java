@@ -1,3 +1,5 @@
+package app.buffer;
+
 import java.awt.image.WritableRaster;
 
 /**
@@ -6,7 +8,7 @@ import java.awt.image.WritableRaster;
 public class PoisonPill extends Task {
 
     /**
-     * Constructor de PoisonPill
+     * Constructor de app.buffer.PoisonPill
      * @param region Una región de un raster de destino
      * @param rasterOriginal Un raster de origen
      */

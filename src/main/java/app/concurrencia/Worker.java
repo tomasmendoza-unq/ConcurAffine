@@ -1,9 +1,15 @@
+package app.concurrencia;
+
+import app.buffer.Buffer;
+import app.buffer.PoisonException;
+import app.buffer.Task;
+
 public class Worker extends Thread {
     private Buffer buffer;
     private WorkerCounter counter;
 
     /**
-     * Constructor de Worker
+     * Constructor de app.concurrencia.Worker
      * @param buffer Un buffer del cual obtener las Tasks
      * @param counter Un contador del cual se desuscriben una vez terminaron de trabajar
      */
@@ -13,7 +19,7 @@ public class Worker extends Thread {
     }
 
     /**
-     * Trabajan hasta recibir una PoisonPill, que se cuando no quedan más regiones por rellenar
+     * Trabajan hasta recibir una app.buffer.PoisonPill, que se cuando no quedan más regiones por rellenar
      */
     @Override
     public void run() {
@@ -25,7 +31,7 @@ public class Worker extends Thread {
                 break;
             }
         }
-        // Se desuscribe del WorkerCounter
+        // Se desuscribe del app.concurrencia.WorkerCounter
         this.counter.restarWorker();
     }
 }

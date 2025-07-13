@@ -1,3 +1,4 @@
+package app.buffer;
 
 /**
  * Clase que representa un buffer de datos

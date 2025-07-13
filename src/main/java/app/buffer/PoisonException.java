@@ -1,7 +1,8 @@
+package app.buffer;
 
 /**
  * Excepción que se dispara cuando se crea corre 
- * el método {@code run()} de la clase {@code PoisonPill}
+ * el método {@code run()} de la clase {@code app.buffer.PoisonPill}
  * 
  * @see PoisonPill
  */
