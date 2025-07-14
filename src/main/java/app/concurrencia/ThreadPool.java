@@ -28,12 +28,8 @@ public class ThreadPool {
 
     /**
      * Constructor de app.concurrencia.ThreadPool
-     * @param capacidadBuffer Indica la capacidad del buffer que se va a crear
-     * @param cantidadDeWorkers Indica la cantidad de Threads Workers que van a trabajar en la imagen
-     * @param url Indica la dirección en la que se aloja la imagen que se le hará la transformación afín
-     * @param opcion Indica que tipo de transformación afín se realizará
      * @param counter Un app.concurrencia.WorkerCounter que sirve para que la clase app.main.Main no termine su ejecucción antes de que los Workers terminen
-     * @param params Objeto que trae los parametros para las matrices
+     * @param menu
      */
     public ThreadPool(Menu menu, WorkerCounter counter){
         this.buffer     = new Buffer(menu.getCapacidadBuffer());
@@ -51,6 +47,34 @@ public class ThreadPool {
             new Thread(this.workers[i]).start();
         }
     }
+
+    /**
+     * Constructor de ThreadPool
+     * @param capacidadBuffer Indica la capacidad del buffer que se va a crear
+     * @param cantidadDeWorkers Indica la cantidad de Threads Workers que van a trabajar en la imagen
+     * @param url Indica la dirección en la que se aloja la imagen que se le hará la transformación afín
+     * @param opcion Indica que tipo de transformación afín se realizará
+     * @param counter Un WorkerCounter que sirve para que la clase Main no termine su ejecucción antes de que los Workers terminen
+     * @param params Objeto que trae los parametros para las matrices
+     */
+    public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url, int opcion, WorkerCounter counter, Parametros params){
+        this.buffer     = new Buffer(capacidadBuffer);
+        this.capacidad  = capacidadBuffer;
+        this.workers    = new Worker[cantidadDeWorkers];
+        this.url        = url;
+        this.opcion     = opcion;
+        this.counter     = counter;
+        this.params      = params;
+
+        this.prueba     = new Pintor();
+
+        for (int i = 0; i < cantidadDeWorkers; i++) {
+            this.workers[i] = new Worker(this.buffer, this.counter);
+            new Thread(this.workers[i]).start();
+        }
+    }
+
+
 
 
     /**
