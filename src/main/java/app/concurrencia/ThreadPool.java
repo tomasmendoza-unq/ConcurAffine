@@ -16,7 +16,6 @@ import java.io.IOException;
 
 public class ThreadPool {
     private Buffer buffer;
-    private int capacidad;
     private Worker[] workers;
     private String url;
     private int opcion;
@@ -33,7 +32,6 @@ public class ThreadPool {
      */
     public ThreadPool(Menu menu, WorkerCounter counter){
         this.buffer     = new Buffer(menu.getCapacidadBuffer());
-        this.capacidad  = menu.getCapacidadBuffer();
         this.workers    = new Worker[menu.getCantidadDeWorkers()];
         this.url        = menu.getUrl();
         this.opcion     = menu.getOpcion();
@@ -59,7 +57,6 @@ public class ThreadPool {
      */
     public ThreadPool(int capacidadBuffer, int cantidadDeWorkers, String url, int opcion, WorkerCounter counter, Parametros params){
         this.buffer     = new Buffer(capacidadBuffer);
-        this.capacidad  = capacidadBuffer;
         this.workers    = new Worker[cantidadDeWorkers];
         this.url        = url;
         this.opcion     = opcion;
@@ -73,9 +70,6 @@ public class ThreadPool {
             new Thread(this.workers[i]).start();
         }
     }
-
-
-
 
     /**
      * Método para crear un lienzo a partir de la imagen dada
@@ -138,11 +132,11 @@ public class ThreadPool {
      * @return
      */
     private int determinarSecciones(int medida) {
-        return (medida >= 1024 && this.capacidad >= 16)
+        return (medida >= 1024)
                 ? 32
-                : (medida >= 512 && this.capacidad >= 8)
+                : (medida >= 512)
                     ? 16
-                    : (medida >= 128 && this.capacidad >= 4)
+                    : (medida >= 128)
                         ? 8
                         : 4;
     }
