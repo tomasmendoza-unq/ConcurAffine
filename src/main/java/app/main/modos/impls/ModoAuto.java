@@ -14,6 +14,16 @@ import app.utils.TimerLogger;
  */
 public class ModoAuto implements Modo {
 
+    private boolean showLogs;
+
+    /**
+     * Constructor del modo automático
+     * @param showLogs Configuración para ver si se muestran los Logs durante la ejecución
+     */
+    public ModoAuto(boolean showLogs) {
+        this.showLogs = showLogs;
+    }
+
     /**
      * Método para iniciar el proceso para registrar los tiempos de cada ejecucción
      */
@@ -50,13 +60,14 @@ public class ModoAuto implements Modo {
                         }
 
                         // Se registra el tiempo en el archivo csv
-                        logger.registrarPromedio(iThreads, bufferSize, imagen, opcion);
+                        logger.registrarPromedio(iThreads, bufferSize, imagen, opcion, this.showLogs);
                     }
                 }
             }
         }
 
         logger.close();
+        System.out.println("Terminó el proceso!");
     }
 
     /**

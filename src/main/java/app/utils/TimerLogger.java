@@ -63,7 +63,7 @@ public class TimerLogger {
         return promedio;
     }
 
-    public void registrarPromedio(int iThreads, int bufferSize, String imagen, int opcion) {
+    public void registrarPromedio(int iThreads, int bufferSize, String imagen, int opcion, boolean showLogs) {
 
         long promedio = this.promedio();
 
@@ -71,7 +71,9 @@ public class TimerLogger {
         logEncabezadoSiCambioImagen(nombreImagen);
 
         writer.println(opcion + "," + iThreads + "," + bufferSize + "," + promedio);
-        System.out.println("Imagen: "  + nombreImagen + ", Opción: " + opcion + ", Threads: " + iThreads + ", Buffer: " + bufferSize + " => Promedio: " + promedio + " ms");
+        if (showLogs) {
+            System.out.println("Imagen: "  + nombreImagen + ", Opción: " + opcion + ", Threads: " + iThreads + ", Buffer: " + bufferSize + " => Promedio: " + promedio + " ms");
+        }
 
         this.tiempos.clear();
     }

@@ -11,10 +11,17 @@ public class Main {
             System.out.println("Ingrese un modo de ejecucion: \n 1. Modo manual \n 2. Modo automático");
 
             int opcion = teclado.nextInt();
-
+            
             switch (opcion){
                 case 1 -> new ModoManual().ejecutar();
-                case 2 -> new ModoAuto().ejecutar();
+                case 2 -> {
+                    System.out.println("Quiere ver los logs de tiempo? \n 1. Si \n 2. No");
+                    opcion = teclado.nextInt();
+                    switch (opcion) {
+                        case 1 -> new ModoAuto(true).ejecutar();
+                        case 2 -> new ModoAuto(false).ejecutar();
+                    }
+                }
             }
         }
     }
