@@ -8,14 +8,12 @@ import java.util.List;
 
 public class TimerLogger {
 
-    private final String csv;
     private long start;
     private String ultimaImagen = "";
     private PrintWriter writer;
     private List<Long> tiempos;
 
     public TimerLogger(String csv) {
-        this.csv = csv;
         this.tiempos = new ArrayList<>();
 
         try {
@@ -34,7 +32,7 @@ public class TimerLogger {
         if (!nuevaImagen.equals(ultimaImagen)) {
             writer.println();
             writer.println("# Imagen: " + nuevaImagen);
-            writer.println("workers,buffer,img,opcion,tiempo");
+            writer.println("Transformación afín, Cantidad de workers, Capacidad del Buffer, tiempo en ms");
             ultimaImagen = nuevaImagen;
         }
     }
@@ -72,7 +70,7 @@ public class TimerLogger {
         String nombreImagen = extraerNombreArchivo(imagen);
         logEncabezadoSiCambioImagen(nombreImagen);
 
-        writer.println(opcion + "," + iThreads + "," + bufferSize + "," + nombreImagen + "," + promedio);
+        writer.println(opcion + "," + iThreads + "," + bufferSize + "," + promedio);
         System.out.println("Imagen: "  + nombreImagen + ", Opción: " + opcion + ", Threads: " + iThreads + ", Buffer: " + bufferSize + " => Promedio: " + promedio + " ms");
 
         this.tiempos.clear();

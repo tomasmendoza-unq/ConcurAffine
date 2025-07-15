@@ -28,17 +28,25 @@ public class Menu {
     }
 
     /**
-     * Método que sirve de menú para el usuario que interactúe
+     * Método que sirve de menú para el usuario que interactúe.
+     * <br><br>
+     * En él se ingresa:
+     * <ul>
+     * <li>La ruta de la imagen.</li>
+     * <li>La transformación afín desea el usuario.</li>
+     * <li>La cantidad de threads con los que quiera trabajar.</li>
+     * <li>La capacidad del buffer.</li>
+     * </ul>
      */
     public void launch() {
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("BIENVENIDO");
-        System.out.println("Ingrese el path de su imagen: \n");
+        System.out.println("Ingrese el path de su imagen: ");
 
         this.url = teclado.nextLine();
 
-        System.out.println("Elija una transformacion: \n 1- Menu.Traslacion \n 2- Menu.Rescalado \n 3- Menu.Reflexion \n 4- Menu.Shear \n 5- Menu.Rotacion");
+        System.out.println("Elija una transformacion afín: \n 1. Traslación \n 2. Reescalado \n 3. Reflexión \n 4. Deformación angular \n 5. Rotación");
 
         this.opcion = teclado.nextInt();
 

@@ -14,6 +14,7 @@ public class Parametros {
     }
 
     public Parametros() {
+        super();
     }
 
     public int getParam1() {

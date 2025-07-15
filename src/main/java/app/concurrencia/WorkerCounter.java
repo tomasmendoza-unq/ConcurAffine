@@ -17,6 +17,8 @@ public class WorkerCounter {
 
     /**
      * Método para desuscribir a un worker
+     * 
+     * se utiliza notify si la cantidad llega a 0 porque se espera que el único thread dormido sea el main
      */
     public synchronized void restarWorker() {
         this.counter--;
