@@ -6,24 +6,38 @@ import app.main.modos.Modo;
 import app.menu.Parametros;
 import app.utils.TimerLogger;
 
-import java.util.List;
-
+/**
+ * Clase para el modo automático de ejecución.
+ * <br><br>
+ * Donde se ejecuta la combinación de distintas cantidades de threads, capacidades de buffer y
+ * las distintas transformaciones afines en 3 imagenes distintas para generar un archivo CSV 
+ */
 public class ModoAuto implements Modo {
+
+    /**
+     * Método para iniciar el proceso para registrar los tiempos de cada ejecucción
+     */
     @Override
     public void ejecutar() {
-        int[] threadsList = {1, 2, 4, 8, 16};
-        int[] bufferSizes = {1, 2, 8, 32, 64};
-        int[] opciones = {1, 2, 3, 4, 5};
-        String[] imagenes = {"image/input/128.jpg", "image/input/512.jpg", "image/input/1024.png"};
-        TimerLogger logger = new TimerLogger("tiempos.csv");
+        int[] threadsList  = {1, 2, 4, 8, 16}; // Cantidad de Thredas que se genera por cada prueba
+        int[] bufferSizes  = {1, 2, 8, 32, 64}; // Capacidades del buffer para cada combinación
+        int[] opciones     = {1, 2, 3, 4, 5}; // Las 5 posibles transformaciones afines
+        String[] imagenes  = {"image/input/128.jpg", "image/input/512.jpg", "image/input/1024.png"}; // La ruta de los 3 archivos
+        TimerLogger logger = new TimerLogger("tiempos.csv"); // La creación del registro
 
+        // Se itera por imagen
         for (String imagen : imagenes) {
+            // Luego se itera por cantidad de threads que trabajen
             for (int iThreads : threadsList) {
+                // También por la capacidad del buffer
                 for (int bufferSize : bufferSizes) {
+                    // y para cada una, se prueba las 5 transformaciones
                     for (int opcion : opciones) {
+                        // Se crean parámetros preestablecidos
                         Parametros params = generarParametros(opcion);
 
-                        for (int i = 0; i<13; i++){
+                        // Trece ejecucciones con una configuración específica
+                        for (int i = 0; i < 13; i++){
                             WorkerCounter counter = new WorkerCounter(iThreads);
                             ThreadPool threadPool = new ThreadPool(bufferSize, iThreads, imagen, opcion, counter, params);
 
@@ -35,18 +49,28 @@ public class ModoAuto implements Modo {
 
                         }
 
-                        logger.registrarPromedio(iThreads,bufferSize,imagen,opcion);
-
-
+                        // Se registra el tiempo en el archivo csv
+                        logger.registrarPromedio(iThreads, bufferSize, imagen, opcion);
                     }
                 }
             }
-
         }
+
+        logger.close();
     }
 
-
-    public  Parametros generarParametros(int opcion) {
+    /**
+     * Método para obtener una configuración específica para cada transformación afín.
+     * <br><br>
+     * Si matriz que se usa es la de traslación o la de rescalado, se configuran 2 parámetros.
+     * <br><br>
+     * Si la matriz que se utiliza es la de reflexión no se configura ningún apartado.
+     * <br><br>
+     * En cambio, si es la matriz de rotación o deformación angular, se requiere de 1 parámetros
+     * @param opcion Un número entre 1-5 para elegir como opción
+     * @return Unos parámetros preestablecidos
+     */
+    public Parametros generarParametros(int opcion) {
         Parametros p = new Parametros();
 
         switch (opcion) {
